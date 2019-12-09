@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { addMonths, parseISO, isBefore, endOfDay } from 'date-fns';
+import { addMonths, parseISO, isBefore, isAfter, endOfDay } from 'date-fns';
 import Membership from '../models/Membership';
 import Plan from '../models/Plan';
 import Student from '../models/Student';
@@ -40,7 +40,14 @@ class MembershipController {
       },
     });
 
-    if (checkStudentHasMembership) {
+    if (
+      checkStudentHasMembership &&
+      isAfter(
+        endOfDay(checkStudentHasMembership.end_date),
+        endOfDay(new Date())
+      ) &&
+      !checkStudentHasMembership.active
+    ) {
       return res
         .status(400)
         .json({ error: 'Student already has a membership' });
