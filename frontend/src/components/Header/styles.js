@@ -44,6 +44,19 @@ export const Content = styled.div`
     display: flex;
     align-items: center;
   }
+
+  @media (max-width: 768px) {
+    nav {
+      img {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        margin-left: 56px;
+        padding-left: 30px;
+        border-left: 1px solid #ddd;
+      }
+    }
+  }
 `;
 
 export const Profile = styled.div`

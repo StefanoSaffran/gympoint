@@ -24,6 +24,7 @@ export const Container = styled.div`
     div {
       display: flex;
       align-items: center;
+      flex-direction: row;
 
       button {
         display: flex;

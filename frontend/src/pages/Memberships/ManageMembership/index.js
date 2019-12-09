@@ -12,6 +12,7 @@ import Loading from '~/components/Loading';
 import history from '~/services/history';
 import api from '~/services/api';
 import colors from '~/styles/colors';
+import { formatPrice } from '~/helpers/format';
 
 import { Container, Header, Student, Info } from './styles';
 
@@ -185,7 +186,7 @@ export default function ManageMembership() {
                       ...membership,
                       plan_id: e.id,
                       plan: e,
-                      price: (e.price * e.duration * 100) / 100,
+                      price: formatPrice(e.price * e.duration),
                     })
                   }
                 />
@@ -228,7 +229,6 @@ export default function ManageMembership() {
                   decimalSeparator=","
                   fixedDecimalScale={2}
                   prefix="R$ "
-                  suffix=".00"
                   name="price"
                   value={membership ? membership.price : ''}
                   disabled
