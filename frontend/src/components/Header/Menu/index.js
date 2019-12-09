@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MdMenu, MdClose } from 'react-icons/md';
+
+import useComponentVisible from '~/helpers/hooks/useComponentVisible';
 import LinkWrapper from '~/helpers/LinkWrapper';
 
 import { Container } from './styles';
 
 export default function Menu() {
-  const [showMenu, setShowMenu] = useState(false);
-
-  const handleMenu = () => {
-    setShowMenu(!showMenu);
-  };
+  const {
+    ref,
+    isComponentVisible,
+    setIsComponentVisible,
+  } = useComponentVisible(false);
 
   return (
     <Container>
-      <button type="button" onClick={handleMenu}>
-        {showMenu ? <MdClose size={26} /> : <MdMenu size={26} />}
+      <button type="button" onClick={setIsComponentVisible}>
+        {isComponentVisible ? <MdClose size={26} /> : <MdMenu size={26} />}
       </button>
 
-      {showMenu ? (
-        <div>
+      {isComponentVisible ? (
+        <div ref={ref}>
           <LinkWrapper to="/students">ALUNOS</LinkWrapper>
           <LinkWrapper to="/plans">PLANOS</LinkWrapper>
           <LinkWrapper to="/memberships">MATRÍCULAS</LinkWrapper>
