@@ -7,6 +7,7 @@ import { MdAdd } from 'react-icons/md';
 import Loading from '~/components/Loading';
 import history from '~/services/history';
 import api from '~/services/api';
+import { formatPrice } from '~/helpers/format';
 
 import { Container, PlanList } from './styles';
 
@@ -86,7 +87,7 @@ export default function Plans() {
                   <span style={textAlignStyle}>{`${plan.duration} ${
                     plan.duration === 1 ? 'mês' : 'meses'
                   }`}</span>
-                  <span style={textAlignStyle}>{`R$ ${plan.price}`}</span>
+                  <span style={textAlignStyle}>{formatPrice(plan.price)}</span>
                   <div>
                     <button type="button" onClick={() => handleEdit(plan.id)}>
                       editar

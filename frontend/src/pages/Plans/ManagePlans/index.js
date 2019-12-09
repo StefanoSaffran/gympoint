@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import { MdKeyboardArrowLeft, MdSave } from 'react-icons/md';
 
-import { unFormat } from '~/helpers/format';
+import { unFormat, formatPrice } from '~/helpers/format';
 import Loading from '~/components/Loading';
 import history from '~/services/history';
 import api from '~/services/api';
@@ -38,7 +38,7 @@ export default function StorePlans() {
     }
   }, [id]);
 
-  const total = useMemo(() => (unFormat(price) * duration * 100) / 100, [
+  const total = useMemo(() => formatPrice(unFormat(price) * duration), [
     duration,
     price,
   ]);
@@ -106,7 +106,7 @@ export default function StorePlans() {
                   prefix="R$ "
                   name="price"
                   value={price || ''}
-                  onChange={event => setPrice(event.target.value)}
+                  onChange={({ target }) => setPrice(target.value)}
                 />
               </span>
               <span>
