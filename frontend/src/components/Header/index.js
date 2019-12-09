@@ -30,7 +30,10 @@ export default function Header() {
     <Container>
       <Content>
         {width < 768 ? (
-          <Menu />
+          <nav>
+            <Menu />
+            <img src={logo} alt="" />
+          </nav>
         ) : (
           <nav>
             <img src={logo} alt="" />
