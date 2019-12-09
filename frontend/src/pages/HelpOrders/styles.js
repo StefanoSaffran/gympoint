@@ -33,6 +33,19 @@ export const Container = styled.div`
   }
 `;
 
+export const EmptyList = styled.div`
+  margin-top: 20px;
+  padding: 30px;
+  width: 100%;
+  background: ${colors.white};
+  flex-direction: column !important;
+
+  p {
+    margin-top: 20px;
+    color: ${colors.darkGray};
+  }
+`;
+
 export const HelpOrdersList = styled.ul`
   margin-top: 20px;
   padding: 30px;

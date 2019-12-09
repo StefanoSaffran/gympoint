@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
+import { FaClipboardCheck } from 'react-icons/fa';
+
 import Loading from '~/components/Loading';
 import Modal from '~/components/Modal';
-import history from '~/services/history';
 import api from '~/services/api';
 
-import { Container, HelpOrdersList } from './styles';
+import { Container, EmptyList, HelpOrdersList } from './styles';
 
 export default function HelpOrders() {
   const [orders, setOrders] = useState(null);
@@ -15,15 +16,14 @@ export default function HelpOrders() {
 
   const modalRef = React.createRef();
 
+  const loadOrders = async () => {
+    const response = await api.get('help-orders');
+    console.tron.log(response.data);
+
+    setOrders(response.data);
+    setLoading(false);
+  };
   useEffect(() => {
-    const loadOrders = async () => {
-      const response = await api.get('help-orders');
-      console.tron.log(response.data);
-
-      setOrders(response.data);
-      setLoading(false);
-    };
-
     loadOrders();
   }, []);
 
@@ -34,7 +34,7 @@ export default function HelpOrders() {
       await api.post(`/help-orders/${order.id}/answer`, { answer });
 
       toast.success('Resposta enviada com sucesso');
-      history.push('/helporders');
+      loadOrders();
     } catch (err) {
       toast.error(
         (err.response && err.response.data.error) ||
@@ -60,7 +60,10 @@ export default function HelpOrders() {
             <h1>Pedidos de auxílio</h1>
           </div>
           {!orders.length ? (
-            <p>Nenhum pedido encontrado...</p>
+            <EmptyList>
+              <FaClipboardCheck size={50} color="#42cb59" />
+              <p>Parabens! Todos os pedidos foram respondidos</p>
+            </EmptyList>
           ) : (
             <HelpOrdersList>
               <li>
