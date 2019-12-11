@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { Form, Input } from '@rocketseat/unform';
-import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { MdKeyboardArrowLeft, MdSave } from 'react-icons/md';
 import * as Yup from 'yup';
 
@@ -10,10 +11,6 @@ import history from '~/services/history';
 import api from '~/services/api';
 import HeightInput from '~/components/HeightInput';
 import { Container, Header } from './styles';
-import {
-  updateStudentsRequest,
-  storeStudentsRequest,
-} from '~/store/modules/students/actions';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Campo Nome é obrigatório'),
@@ -35,7 +32,6 @@ export default function ManageStudent() {
   const [student, setStudent] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (id) {
@@ -53,14 +49,36 @@ export default function ManageStudent() {
 
   const handleStore = async data => {
     setLoading(true);
-    dispatch(storeStudentsRequest(data));
-    setLoading(false);
+    try {
+      await api.post('students', { ...data });
+
+      toast.success('Aluno cadastrado com sucesso');
+      history.push(`/students/${id}`);
+    } catch (err) {
+      toast.error(
+        (err.response && err.response.data.error) ||
+          'Erro de comunicação com o servidor'
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleUpdate = async data => {
     setLoading(true);
-    dispatch(updateStudentsRequest(data, id));
-    setLoading(false);
+    try {
+      await api.put(`students/${id}`, { ...data });
+
+      toast.success('Aluno atualizado com sucesso');
+      history.push(`/students`);
+    } catch (err) {
+      toast.error(
+        (err.response && err.response.data.error) ||
+          'Erro de comunicação com o servidor'
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
