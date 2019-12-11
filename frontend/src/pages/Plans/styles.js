@@ -73,7 +73,7 @@ export const PlanList = styled.ul`
 
   li {
     display: grid;
-    grid-template-columns: 4fr 2fr 2fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     padding-bottom: 10px;
     margin-bottom: 10px;
 
@@ -94,6 +94,7 @@ export const PlanList = styled.ul`
         background: none;
         border: 0;
         color: ${colors.editButton};
+        padding-right: 10px;
 
         &:hover {
           color: ${darken(0.1, `${colors.editButton}`)};
@@ -119,4 +120,9 @@ export const PlanList = styled.ul`
     padding-bottom: 0;
     margin-bottom: 0;
   }
+
+  @media (min-width: 768px) {
+    li {
+    grid-template-columns: 2fr 2fr 2fr 1fr;
+    }
 `;

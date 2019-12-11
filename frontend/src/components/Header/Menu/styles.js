@@ -16,12 +16,12 @@ export const Container = styled.div`
   div {
     display: flex;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgb(255, 255, 255);
     padding: 15px 5px;
-    border-radius: 4px;
     position: absolute;
     top: 64px;
     left: 0;
+    height: 92%;
 
     a {
       font-weight: bold;
