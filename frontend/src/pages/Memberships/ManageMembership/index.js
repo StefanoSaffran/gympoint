@@ -156,7 +156,7 @@ export default function ManageMembership() {
                 styles={customStyles}
                 options={students}
                 multiple={false}
-                name="name"
+                name="students"
                 placeholder="Buscar aluno"
                 getOptionValue={student => student.id}
                 getOptionLabel={student => student.name}
@@ -180,6 +180,7 @@ export default function ManageMembership() {
                   name="plan"
                   placeholder="Buscar plano"
                   value={membership ? membership.plan : ''}
+                  getOptionValue={plan => plan.id}
                   getOptionLabel={plan => plan.title}
                   onChange={e =>
                     setMembership({
