@@ -122,6 +122,10 @@ export default function ManageMembership() {
       ...styles,
       fontWeight: 'normal',
     }),
+    indicatorSeparator: styles => ({
+      ...styles,
+      display: 'none',
+    }),
   };
 
   return (
@@ -150,7 +154,7 @@ export default function ManageMembership() {
           </Header>
           <form id="form-memberships" onSubmit={handleSubmit}>
             <Student>
-              <span>ALUNO </span>
+              <label>ALUNO </label>
               <Select
                 isDisabled={studentId}
                 styles={customStyles}
@@ -171,7 +175,7 @@ export default function ManageMembership() {
               />
             </Student>
             <Info>
-              <span>
+              <label>
                 PLANO
                 <Select
                   styles={customStyles}
@@ -191,8 +195,8 @@ export default function ManageMembership() {
                     })
                   }
                 />
-              </span>
-              <span>
+              </label>
+              <label>
                 DATA DE INÍCIO
                 <DatePicker
                   dateFormat="dd/MM/yyyy"
@@ -212,8 +216,8 @@ export default function ManageMembership() {
                     });
                   }}
                 />
-              </span>
-              <span>
+              </label>
+              <label>
                 DATA DE TÉRMINO
                 <DatePicker
                   dateFormat="dd/MM/yyyy"
@@ -222,8 +226,8 @@ export default function ManageMembership() {
                   placeholder="Data de termino"
                   selected={membership ? membership.end_date : ''}
                 />
-              </span>
-              <span>
+              </label>
+              <label>
                 VALOR FINAL
                 <NumberFormat
                   thousandSeparator="."
@@ -234,7 +238,7 @@ export default function ManageMembership() {
                   value={membership ? membership.price : ''}
                   disabled
                 />
-              </span>
+              </label>
             </Info>
           </form>
         </>

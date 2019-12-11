@@ -107,9 +107,9 @@ export default function ManageStudent() {
             id="form-students"
           >
             <div>
-              <span>NOME COMPLETO</span>
+              <label>NOME COMPLETO</label>
               <Input id="name" name="name" placeholder="Nome do aluno" />
-              <span>ENDEREÇO DE E-MAIL</span>
+              <label>ENDEREÇO DE E-MAIL</label>
               <Input
                 id="email"
                 name="email"
@@ -118,11 +118,11 @@ export default function ManageStudent() {
               />
             </div>
             <div className="infoStudent-second">
-              <span>
+              <label>
                 IDADE
                 <Input id="age" name="age" type="number" placeholder="20" />
-              </span>
-              <span>
+              </label>
+              <label>
                 PESO (em kg)
                 <Input
                   id="weight"
@@ -131,11 +131,11 @@ export default function ManageStudent() {
                   placeholder="80.0"
                   step="00.1"
                 />
-              </span>
-              <span>
+              </label>
+              <label>
                 ALTURA (em metros)
                 <HeightInput name="height" />
-              </span>
+              </label>
             </div>
           </Form>
         </>

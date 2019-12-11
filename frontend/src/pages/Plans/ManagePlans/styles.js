@@ -22,13 +22,10 @@ export const Container = styled.div`
       flex-direction: column;
       width: 100%;
 
-      span {
+      label {
         font-weight: bold;
         color: ${colors.darkGray};
         margin-top: 25px;
-      }
-
-      span + span {
       }
 
       input {
@@ -44,10 +41,10 @@ export const Container = styled.div`
     div + div {
       flex-direction: row;
 
-      span {
+      label {
         width: 100%;
       }
-      span + span {
+      label + label {
         margin-left: 16px;
       }
     }
