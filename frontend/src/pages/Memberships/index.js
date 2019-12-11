@@ -78,10 +78,14 @@ export default function Memberships() {
           onClick: async () => {
             try {
               await api.delete(`memberships/${membership.student_id}`);
-              setMemberships(memberships.filter(m => m.id !== membership.id));
               toast.success('Matricula excluida com sucesso');
+              setPage(memberships.length === 1 ? page - 1 : page);
+              setMemberships(memberships.filter(m => m.id !== membership.id));
             } catch (err) {
-              toast.error(err.response.data.error);
+              toast.error(
+                (err.response && err.response.data.error) ||
+                  'Erro de comunicação com o servidor'
+              );
             }
           },
         },
