@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import { confirmAlert } from 'react-confirm-alert';
-import { useDispatch } from 'react-redux';
 import { MdPersonAdd } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
@@ -12,10 +11,7 @@ import api from '~/services/api';
 
 import { Container, StudentList } from './styles';
 
-import { deleteStudentsRequest } from '~/store/modules/students/actions';
-
 export default function Students() {
-  const dispatch = useDispatch();
   const [students, setStudents] = useState([]);
   const [filter, setFilter] = useState('');
   const [loading, setLoading] = useState(true);
@@ -60,9 +56,18 @@ export default function Students() {
       buttons: [
         {
           label: 'Yes',
-          onClick: () => {
-            dispatch(deleteStudentsRequest(student.id));
-            setStudents(students.filter(s => s.id !== student.id));
+          onClick: async () => {
+            try {
+              await api.delete(`students/${student.id}`);
+              toast.success('Aluno excluido com sucesso');
+              setPage(students.length === 1 ? page - 1 : page);
+              setStudents(students.filter(s => s.id !== student.id));
+            } catch (err) {
+              toast.error(
+                (err.response && err.response.data.error) ||
+                  'Erro de comunicação com o servidor'
+              );
+            }
           },
         },
         {
