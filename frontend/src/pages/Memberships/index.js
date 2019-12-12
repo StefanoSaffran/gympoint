@@ -62,7 +62,7 @@ export default function Memberships() {
 
   const handleEdit = (studentId, active) => {
     if (active) {
-      toast.error('Matrículas ativas não podem ser alteradas');
+      toast.info('Matrículas ativas não podem ser alteradas');
       return;
     }
     history.push(`memberships/${studentId}`);

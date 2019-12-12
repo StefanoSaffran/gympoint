@@ -86,7 +86,7 @@ export default function HelpOrders() {
                 <p>{order.question}</p>
               </>
             ) : (
-              <h2>Carregando</h2>
+              <h2>Carregando...</h2>
             )}
           </Modal>
         </>
