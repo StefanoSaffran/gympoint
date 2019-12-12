@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import NumberFormat from 'react-number-format';
 import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 import DatePicker from 'react-datepicker';
 import { MdKeyboardArrowLeft, MdSave } from 'react-icons/md';
 import { addMonths, parseISO } from 'date-fns';
@@ -61,6 +62,27 @@ export default function ManageMembership() {
 
     loadPlans();
   }, []);
+
+  const getStudents = async filter => {
+    if (!filter) {
+      return [];
+    }
+
+    const { data } = await api.get('students', {
+      params: {
+        filter,
+      },
+    });
+
+    return data;
+  };
+
+  const loadOptions = inputValue =>
+    new Promise(resolve => {
+      setTimeout(() => {
+        resolve(getStudents(inputValue));
+      }, 1000);
+    });
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -155,12 +177,14 @@ export default function ManageMembership() {
           <form id="form-memberships" onSubmit={handleSubmit}>
             <Student>
               <label>ALUNO </label>
-              <Select
+              <AsyncSelect
                 isDisabled={studentId}
                 styles={customStyles}
-                options={students}
+                defaultOptions={students}
+                loadOptions={loadOptions}
                 multiple={false}
                 name="students"
+                aria-label={students}
                 placeholder="Buscar aluno"
                 getOptionValue={student => student.id}
                 getOptionLabel={student => student.name}
