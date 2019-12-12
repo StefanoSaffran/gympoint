@@ -30,13 +30,6 @@ export const Container = styled.div`
       props.visible &&
       'zoomIn .5s .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards'};
 
-    svg {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      cursor: pointer;
-    }
-
     strong {
       color: ${colors.darkGray};
       margin-bottom: 11px;

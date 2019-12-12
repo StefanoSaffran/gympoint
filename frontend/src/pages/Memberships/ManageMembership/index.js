@@ -8,6 +8,7 @@ import AsyncSelect from 'react-select/async';
 import DatePicker from 'react-datepicker';
 import { MdKeyboardArrowLeft, MdSave } from 'react-icons/md';
 import { addMonths, parseISO } from 'date-fns';
+import debounce from 'debounce-promise';
 
 import Loading from '~/components/Loading';
 import history from '~/services/history';
@@ -73,16 +74,15 @@ export default function ManageMembership() {
         filter,
       },
     });
-
+    console.log(data);
     return data;
   };
 
-  const loadOptions = inputValue =>
-    new Promise(resolve => {
-      setTimeout(() => {
-        resolve(getStudents(inputValue));
-      }, 1000);
-    });
+  const wait = 1500; // milliseconds
+  const loadOptions = inputValue => getStudents(inputValue);
+  const debouncedLoadOptions = debounce(loadOptions, wait, {
+    leading: true,
+  });
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -181,7 +181,7 @@ export default function ManageMembership() {
                 isDisabled={studentId}
                 styles={customStyles}
                 defaultOptions={students}
-                loadOptions={loadOptions}
+                loadOptions={inputValue => debouncedLoadOptions(inputValue)}
                 multiple={false}
                 name="students"
                 aria-label={students}
