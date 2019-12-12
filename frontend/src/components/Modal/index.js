@@ -21,7 +21,7 @@ const Modal = React.forwardRef((props, ref) => {
   });
 
   return (
-    <Container style={showHidestyle}>
+    <Container visible={visible} style={showHidestyle}>
       <section className="modal-main">
         <MdClear size={16} color="red" onClick={toggleVisibility} />
         {props.children}

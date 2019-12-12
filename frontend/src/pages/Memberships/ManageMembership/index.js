@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import NumberFormat from 'react-number-format';
 import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 import DatePicker from 'react-datepicker';
 import { MdKeyboardArrowLeft, MdSave } from 'react-icons/md';
 import { addMonths, parseISO } from 'date-fns';
@@ -61,6 +62,27 @@ export default function ManageMembership() {
 
     loadPlans();
   }, []);
+
+  const getStudents = async filter => {
+    if (!filter) {
+      return [];
+    }
+
+    const { data } = await api.get('students', {
+      params: {
+        filter,
+      },
+    });
+
+    return data;
+  };
+
+  const loadOptions = inputValue =>
+    new Promise(resolve => {
+      setTimeout(() => {
+        resolve(getStudents(inputValue));
+      }, 1000);
+    });
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -122,6 +144,10 @@ export default function ManageMembership() {
       ...styles,
       fontWeight: 'normal',
     }),
+    indicatorSeparator: styles => ({
+      ...styles,
+      display: 'none',
+    }),
   };
 
   return (
@@ -150,13 +176,15 @@ export default function ManageMembership() {
           </Header>
           <form id="form-memberships" onSubmit={handleSubmit}>
             <Student>
-              <span>ALUNO </span>
-              <Select
+              <label>ALUNO </label>
+              <AsyncSelect
                 isDisabled={studentId}
                 styles={customStyles}
-                options={students}
+                defaultOptions={students}
+                loadOptions={loadOptions}
                 multiple={false}
                 name="students"
+                aria-label={students}
                 placeholder="Buscar aluno"
                 getOptionValue={student => student.id}
                 getOptionLabel={student => student.name}
@@ -171,7 +199,7 @@ export default function ManageMembership() {
               />
             </Student>
             <Info>
-              <span>
+              <label>
                 PLANO
                 <Select
                   styles={customStyles}
@@ -191,8 +219,8 @@ export default function ManageMembership() {
                     })
                   }
                 />
-              </span>
-              <span>
+              </label>
+              <label>
                 DATA DE INÍCIO
                 <DatePicker
                   dateFormat="dd/MM/yyyy"
@@ -212,8 +240,8 @@ export default function ManageMembership() {
                     });
                   }}
                 />
-              </span>
-              <span>
+              </label>
+              <label>
                 DATA DE TÉRMINO
                 <DatePicker
                   dateFormat="dd/MM/yyyy"
@@ -222,8 +250,8 @@ export default function ManageMembership() {
                   placeholder="Data de termino"
                   selected={membership ? membership.end_date : ''}
                 />
-              </span>
-              <span>
+              </label>
+              <label>
                 VALOR FINAL
                 <NumberFormat
                   thousandSeparator="."
@@ -234,7 +262,7 @@ export default function ManageMembership() {
                   value={membership ? membership.price : ''}
                   disabled
                 />
-              </span>
+              </label>
             </Info>
           </form>
         </>

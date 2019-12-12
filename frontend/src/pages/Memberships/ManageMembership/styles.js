@@ -16,11 +16,11 @@ export const Container = styled.div`
     background: ${colors.white};
     align-items: flex-start;
 
-    span {
+    label {
       width: 100%;
       margin: 25px 0 5px;
     }
-    span + span {
+    label + label {
       margin-left: 16px;
     }
   }
@@ -76,7 +76,7 @@ export const Student = styled.div`
   width: 100%;
   padding-top: 25px;
 
-  span {
+  label {
     font-weight: bold;
     color: ${colors.darkGray};
   }
@@ -86,7 +86,7 @@ export const Info = styled.div`
   display: flex;
   flex-direction: row;
 
-  span {
+  label {
     font-weight: bold;
     color: ${colors.darkGray};
     width: 100%;
@@ -107,7 +107,7 @@ export const Info = styled.div`
     width: 100%;
     flex-direction: column;
 
-    span {
+    label {
       display: flex;
       flex-direction: column;
       margin: 20px 0 0 !important;

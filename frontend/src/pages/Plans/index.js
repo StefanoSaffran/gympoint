@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import { confirmAlert } from 'react-confirm-alert';
-import { useDispatch } from 'react-redux';
 import { MdAdd } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 import Loading from '~/components/Loading';
 import history from '~/services/history';
@@ -11,10 +11,7 @@ import { formatPrice } from '~/helpers/format';
 
 import { Container, PlanList } from './styles';
 
-import { deletePlanRequest } from '~/store/modules/plans/actions';
-
 export default function Plans() {
-  const dispatch = useDispatch();
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -44,9 +41,17 @@ export default function Plans() {
       buttons: [
         {
           label: 'Yes',
-          onClick: () => {
-            dispatch(deletePlanRequest(plan.id));
-            setPlans(plans.filter(s => s.id !== plan.id));
+          onClick: async () => {
+            try {
+              await api.delete(`plans/${plan.id}`);
+              toast.success('Plano excluido com sucesso');
+              setPlans(plans.filter(s => s.id !== plan.id));
+            } catch (err) {
+              toast.error(
+                (err.response && err.response.data.error) ||
+                  'Erro de comunicação com o servidor'
+              );
+            }
           },
         },
         {

@@ -21,7 +21,7 @@ class CheckinController {
     if (!checkStudentHasMembership) {
       return res
         .status(401)
-        .json({ error: 'Students need a membership to checkin' });
+        .json({ error: 'Students need a membership to check-in' });
     }
 
     const checkCheckinToday = await Checkin.findOne({
@@ -35,7 +35,7 @@ class CheckinController {
 
     if (checkCheckinToday) {
       return res.status(401).json({
-        error: 'You already checked in today',
+        error: 'You already did your check-in today',
       });
     }
 

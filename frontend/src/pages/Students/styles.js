@@ -84,7 +84,7 @@ export const StudentList = styled.ul`
 
   li {
     display: grid;
-    grid-template-columns: 4fr 3fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr 1fr 1fr;
     padding-bottom: 10px;
     margin-bottom: 10px;
 
@@ -105,6 +105,7 @@ export const StudentList = styled.ul`
         background: none;
         border: 0;
         color: ${colors.editButton};
+        margin-right: 5px;
 
         &:hover {
           color: ${darken(0.1, `${colors.editButton}`)};
@@ -129,5 +130,21 @@ export const StudentList = styled.ul`
     border: 0;
     padding-bottom: 0;
     margin-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    li {
+      grid-template-columns: 4fr 3fr 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    li {
+      div {
+        button {
+          margin-right: 0;
+        }
+      }
+    }
   }
 `;

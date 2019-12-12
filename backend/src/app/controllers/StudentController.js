@@ -42,6 +42,19 @@ class StudentController {
     const { page, filter } = req.query;
 
     if (filter || page) {
+      if (!page) {
+        const students = await Student.findAll({
+          where: {
+            name: {
+              [Op.iLike]: `%${filter}%`,
+            },
+          },
+          order: ['name'],
+        });
+
+        return res.json(students);
+      }
+
       const { count, rows: students } = await Student.findAndCountAll({
         where: {
           name: {
@@ -55,6 +68,7 @@ class StudentController {
 
       return res.json({ students, count });
     }
+
     const students = await Student.findAll({
       order: ['name'],
     });

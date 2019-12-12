@@ -14,18 +14,21 @@ export default function Menu() {
   } = useComponentVisible(false);
 
   return (
-    <Container>
+    <Container visible={isComponentVisible}>
       <button type="button" onClick={setIsComponentVisible}>
         {isComponentVisible ? <MdClose size={26} /> : <MdMenu size={26} />}
       </button>
 
       {isComponentVisible ? (
-        <div ref={ref}>
-          <LinkWrapper to="/students">ALUNOS</LinkWrapper>
-          <LinkWrapper to="/plans">PLANOS</LinkWrapper>
-          <LinkWrapper to="/memberships">MATRÍCULAS</LinkWrapper>
-          <LinkWrapper to="/helporders">PEDIDOS DE AUXÍLIO</LinkWrapper>
-        </div>
+        <>
+          <div ref={ref}>
+            <LinkWrapper to="/students">ALUNOS</LinkWrapper>
+            <LinkWrapper to="/plans">PLANOS</LinkWrapper>
+            <LinkWrapper to="/memberships">MATRÍCULAS</LinkWrapper>
+            <LinkWrapper to="/helporders">PEDIDOS DE AUXÍLIO</LinkWrapper>
+          </div>
+          <div />
+        </>
       ) : null}
     </Container>
   );
