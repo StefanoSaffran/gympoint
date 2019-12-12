@@ -1,29 +1,28 @@
 import React, { useState, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
-import { MdClear } from 'react-icons/md';
+import useComponentVisible from '~/helpers/hooks/useComponentVisible';
 
 import { Container } from './styles';
 
-const Modal = React.forwardRef((props, ref) => {
-  const [visible, setVisible] = useState(false);
+const Modal = React.forwardRef((props, forwardRef) => {
+  const {
+    ref,
+    isComponentVisible,
+    setIsComponentVisible,
+  } = useComponentVisible(false);
   const [answer, setAnswer] = useState('');
 
-  const showHidestyle = { display: visible ? '' : 'none' };
+  const showHidestyle = { display: isComponentVisible ? '' : 'none' };
 
-  const toggleVisibility = () => {
-    setVisible(!visible);
-  };
-
-  useImperativeHandle(ref, () => {
+  useImperativeHandle(forwardRef, () => {
     return {
-      toggleVisibility,
+      setIsComponentVisible,
     };
   });
 
   return (
-    <Container visible={visible} style={showHidestyle}>
-      <section className="modal-main">
-        <MdClear size={16} color="red" onClick={toggleVisibility} />
+    <Container visible={isComponentVisible} style={showHidestyle}>
+      <section className="modal-main" ref={ref}>
         {props.children}
         <div>
           <strong className="answer">SUA RESPOSTA</strong>
@@ -44,6 +43,7 @@ const Modal = React.forwardRef((props, ref) => {
 
 Modal.propTypes = {
   handleAnswer: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default Modal;
