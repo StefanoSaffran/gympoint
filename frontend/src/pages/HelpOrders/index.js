@@ -28,7 +28,7 @@ export default function HelpOrders() {
   }, []);
 
   const handleAnswer = async answer => {
-    modalRef.current.toggleVisibility();
+    modalRef.current.setIsComponentVisible(true);
     setLoading(true);
     try {
       await api.post(`/help-orders/${order.id}/answer`, { answer });
@@ -47,7 +47,7 @@ export default function HelpOrders() {
 
   const handleOpen = studentOrder => {
     setOrder(studentOrder);
-    modalRef.current.toggleVisibility();
+    modalRef.current.setIsComponentVisible(true);
   };
 
   return (
