@@ -110,6 +110,7 @@ export default function Students() {
               <input
                 type="text"
                 placeholder="Buscar aluno"
+                value={filter}
                 onChange={({ target }) => setFilter(target.value)}
                 onKeyPress={e => (e.key === 'Enter' ? handleSearch() : '')}
               />

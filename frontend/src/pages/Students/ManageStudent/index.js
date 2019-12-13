@@ -50,10 +50,10 @@ export default function ManageStudent() {
   const handleStore = async data => {
     setLoading(true);
     try {
-      await api.post('students', { ...data });
+      const res = await api.post('students', { ...data });
 
       toast.success('Aluno cadastrado com sucesso');
-      history.push(`/students/${id}`);
+      history.push(`/students/${res.data.id}`);
     } catch (err) {
       toast.error(
         (err.response && err.response.data.error) ||
