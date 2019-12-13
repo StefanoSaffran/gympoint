@@ -74,7 +74,6 @@ export default function ManageMembership() {
         filter,
       },
     });
-    console.log(data);
     return data;
   };
 
