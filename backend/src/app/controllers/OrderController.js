@@ -12,18 +12,34 @@ class OrderController {
       return res.status(400).json({ error: 'validation fails' });
     }
 
+    const { id } = req.params;
     const { question } = req.body;
 
-    const checkStudentExists = await Student.findByPk(req.params.id);
+    const checkStudentExists = await Student.findByPk(id);
 
     if (!checkStudentExists) {
       return res.status(401).json({ error: 'Student not found' });
     }
 
-    await Order.create({
-      student_id: req.params.id,
+    const newOrder = await Order.create({
+      student_id: id,
       question,
     });
+
+    const data = {
+      id: newOrder.id,
+      question: newOrder.question,
+      student: {
+        id: checkStudentExists.id,
+        name: checkStudentExists.name,
+      },
+    };
+
+    const ownerSocket = req.admin;
+
+    if (ownerSocket) {
+      req.io.to('admin').emit('new_order', data);
+    }
 
     return res.status(204).send();
   }
