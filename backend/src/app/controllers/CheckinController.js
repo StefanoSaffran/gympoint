@@ -68,13 +68,28 @@ class CheckinController {
       return res.status(401).json({ error: 'Student not found' });
     }
 
+    const checkStudentHasMembership = await Membership.findOne({
+      where: {
+        student_id: req.params.id,
+      },
+    });
+
+    if (!checkStudentHasMembership) {
+      return res
+        .status(401)
+        .json({ error: 'Students need a membership to check-in' });
+    }
+
     const checkins = await Checkin.findAll({
       where: {
         student_id: req.params.id,
       },
     });
 
-    return res.json(checkins);
+    return res.json({
+      checkins,
+      student: checkStudentExists,
+    });
   }
 }
 
