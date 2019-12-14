@@ -22,7 +22,7 @@ class AnswerController {
         {
           model: Student,
           as: 'student',
-          attributes: ['name', 'email'],
+          attributes: ['id', 'name', 'email'],
         },
       ],
     });
@@ -37,6 +37,12 @@ class AnswerController {
     order.answer_at = new Date();
 
     await order.save();
+
+    const ownerSocket = req.connectedUsers[order.student.id];
+
+    if (ownerSocket) {
+      req.io.to(ownerSocket).emit('order_response', order);
+    }
 
     await Queue.add(HelpOrderAnswerMail.key, {
       order,

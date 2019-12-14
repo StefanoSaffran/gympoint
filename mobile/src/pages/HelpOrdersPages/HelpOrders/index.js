@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { withNavigationFocus } from 'react-navigation';
+import PropTypes from 'prop-types';
+import socketio from 'socket.io-client';
 
 import api from '~/services/api';
 
@@ -11,7 +13,30 @@ import { Container, NewOrderButton, HelpOrderList } from './styles';
 
 function HelpOrders({ navigation, isFocused }) {
   const [orders, setOrders] = useState([]);
-  const id = useSelector(state => state.student.id);
+  const id = useSelector(state => {
+    return state.student.profile.id;
+  });
+
+  const socket = useMemo(
+    () =>
+      socketio('http://10.0.2.2:3003', {
+        query: {
+          user_id: id,
+          origin: 'mobile',
+        },
+      }),
+    [id]
+  );
+
+  useEffect(() => {
+    socket.on('order_response', order => {
+      setOrders(
+        orders.map(o => {
+          return o.id !== order.id ? o : order;
+        })
+      );
+    });
+  });
 
   const loadOrders = async () => {
     setOrders([]);
@@ -45,5 +70,12 @@ function HelpOrders({ navigation, isFocused }) {
     </Background>
   );
 }
+
+HelpOrders.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+  isFocused: PropTypes.bool.isRequired,
+};
 
 export default withNavigationFocus(HelpOrders);
