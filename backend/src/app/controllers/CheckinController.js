@@ -2,6 +2,7 @@ import { startOfDay, endOfDay, subDays } from 'date-fns';
 import { Op } from 'sequelize';
 import Membership from '../models/Membership';
 import Student from '../models/Student';
+import Plan from '../models/Plan';
 import Checkin from '../models/Checkin';
 
 class CheckinController {
@@ -72,6 +73,18 @@ class CheckinController {
       where: {
         student_id: req.params.id,
       },
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name', 'email'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['title'],
+        },
+      ],
     });
 
     if (!checkStudentHasMembership) {
@@ -88,7 +101,7 @@ class CheckinController {
 
     return res.json({
       checkins,
-      student: checkStudentExists,
+      membership: checkStudentHasMembership,
     });
   }
 }
