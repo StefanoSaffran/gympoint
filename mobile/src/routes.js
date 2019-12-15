@@ -4,14 +4,15 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import SignIn from './Pages/SignIn';
+import SignIn from '~/pages/SignIn';
 
-import Checkins from './Pages/CheckInsPage/Checkins';
-import HelpOrders from './Pages/HelpOrdersPages/HelpOrders';
-import Answer from './Pages/HelpOrdersPages/Answer';
-import NewOrder from './Pages/HelpOrdersPages/NewOrder';
+import Checkins from '~/pages/CheckInsPage/Checkins';
+import HelpOrders from '~/pages/HelpOrdersPages/HelpOrders';
+import Answer from '~/pages/HelpOrdersPages/Answer';
+import NewOrder from '~/pages/HelpOrdersPages/NewOrder';
+import Profile from '~/pages/ProfilePage/Profile';
 
-import Header from './components/Header';
+import Header from '~/components/Header';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -58,6 +59,28 @@ export default (signedIn = false) =>
                 tabBarLabel: 'Pedir ajuda',
                 tabBarIcon: ({ tintColor }) => (
                   <Icon name="help" size={20} color={tintColor} />
+                ),
+              },
+            },
+            ProfilePage: {
+              screen: createStackNavigator(
+                {
+                  Profile,
+                },
+                {
+                  headerLayoutPreset: 'center',
+                  defaultNavigationOptions: {
+                    header: <Header />,
+                    headerStyle: {
+                      backgroundColor: '#fff',
+                    },
+                  },
+                }
+              ),
+              navigationOptions: {
+                tabBarLabel: 'Profile',
+                tabBarIcon: ({ tintColor }) => (
+                  <Icon name="person" size={20} color={tintColor} />
                 ),
               },
             },
