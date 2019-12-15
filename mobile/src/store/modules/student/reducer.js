@@ -1,12 +1,12 @@
 import produce from 'immer';
 
-const initial_state = {
-  id: null,
+const INITIAL_STATE = {
+  profile: null,
   signed: false,
   loading: false,
 };
 
-export default function student(state = initial_state, action) {
+export default function student(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
       case '@student/SIGN_IN_REQUEST': {
@@ -14,7 +14,7 @@ export default function student(state = initial_state, action) {
         break;
       }
       case '@student/SIGN_IN_SUCCESS': {
-        draft.id = action.payload.id;
+        draft.profile = action.payload.membership;
         draft.signed = true;
         draft.loading = false;
         break;
@@ -25,6 +25,7 @@ export default function student(state = initial_state, action) {
       }
       case '@student/SIGN_OUT': {
         draft.signed = false;
+        draft.profile = null;
         break;
       }
       default:

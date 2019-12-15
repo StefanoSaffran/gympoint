@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { parseISO, formatRelative } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
+import PropTypes from 'prop-types';
 
 import Background from '~/components/Background';
 import {
@@ -43,3 +44,9 @@ export default function Answer({ navigation }) {
     </Background>
   );
 }
+
+Answer.propTypes = {
+  navigation: PropTypes.shape({
+    getParam: PropTypes.func,
+  }).isRequired,
+};

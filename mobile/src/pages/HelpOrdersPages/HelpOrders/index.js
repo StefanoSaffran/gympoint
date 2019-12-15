@@ -14,7 +14,7 @@ import { Container, NewOrderButton, HelpOrderList } from './styles';
 function HelpOrders({ navigation, isFocused }) {
   const [orders, setOrders] = useState([]);
   const id = useSelector(state => {
-    return state.student.profile.id;
+    return state.student.profile.student.id;
   });
 
   const socket = useMemo(

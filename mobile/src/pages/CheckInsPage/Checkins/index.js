@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { parseISO, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
 
@@ -19,12 +20,12 @@ import {
 
 function Checkins({ isFocused }) {
   const [checkins, setCheckins] = useState([]);
-  const id = useSelector(state => state.student.id);
+  const id = useSelector(state => state.student.profile.student.id);
 
   const loadCheckins = async () => {
     const { data } = await api.get(`students/${id}/checkins`);
-
-    const formattedData = data.map(checkin => ({
+    console.tron.log(data);
+    const formattedData = data.checkins.map(checkin => ({
       ...checkin,
       timeDistance: formatDistance(parseISO(checkin.createdAt), new Date(), {
         addSuffix: true,
@@ -69,5 +70,9 @@ function Checkins({ isFocused }) {
     </Background>
   );
 }
+
+Checkins.propTypes = {
+  isFocused: PropTypes.bool.isRequired,
+};
 
 export default withNavigationFocus(Checkins);
