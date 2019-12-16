@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import Order from '../models/Order';
 import Student from '../models/Student';
+import Membership from '../models/Membership';
 
 class OrderController {
   async store(req, res) {
@@ -19,6 +20,24 @@ class OrderController {
 
     if (!checkStudentExists) {
       return res.status(401).json({ error: 'Student not found' });
+    }
+
+    const checkStudentHasMembership = await Membership.findOne({
+      where: {
+        student_id: id,
+      },
+    });
+
+    if (!checkStudentHasMembership) {
+      return res
+        .status(401)
+        .json({ error: 'Students need a membership to create orders' });
+    }
+
+    if (!checkStudentHasMembership.active) {
+      return res
+        .status(401)
+        .json({ error: 'Membership must be active to create orders' });
     }
 
     const newOrder = await Order.create({
