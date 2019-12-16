@@ -8,12 +8,17 @@ export function* signIn({ payload }) {
   try {
     const { id } = payload;
 
-    yield call(api.get, `students/${id}/checkins`);
-
-    yield put(signInSuccess(id));
+    const { data } = yield call(api.get, `students/${id}/checkins`);
+    console.tron.log(data.membership);
+    yield put(signInSuccess(data.membership));
   } catch (err) {
-    Alert.alert('Falha ao realizar login', err.response.data.error);
     yield put(signFailure());
+    Alert.alert(
+      'Falha ao realizar login',
+      err.response
+        ? err.response.data.error
+        : 'Erro de comunicação com servidor'
+    );
   }
 }
 

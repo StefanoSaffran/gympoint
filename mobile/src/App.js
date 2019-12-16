@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { StatusBar } from 'react-native';
+import { StatusBar, YellowBox } from 'react-native';
 
 import createRouter from './routes';
+
+YellowBox.ignoreWarnings(['Unrecognized WebSocket']);
 
 export default function App() {
   const signed = useSelector(state => state.student.signed);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import api from '~/services/api';
 
@@ -9,7 +10,7 @@ import { Container, OrderTextArea, SubmitButton } from './styles';
 
 export default function NewOrder({ navigation }) {
   const [question, setQuestion] = useState('');
-  const id = useSelector(state => state.student.id);
+  const id = useSelector(state => state.student.profile.student.id);
 
   const handleSubmit = async () => {
     try {
@@ -21,6 +22,7 @@ export default function NewOrder({ navigation }) {
       );
 
       setQuestion('');
+      navigation.navigate('HelpOrders');
     } catch (err) {
       Alert.alert('Falha ao realizar o pedido', err.response.data.error);
     }
@@ -46,3 +48,9 @@ export default function NewOrder({ navigation }) {
     </Background>
   );
 }
+
+NewOrder.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+};
