@@ -19,7 +19,7 @@ import { formatPrice } from '~/helpers/format';
 import { Container, Header, Student, Info } from './styles';
 
 export default function ManageMembership() {
-  const [membership, setMembership] = useState({});
+  const [membership, setMembership] = useState({ price: 0 }); // to prevent NaN on field 'Valor Final'
   const [students, setStudents] = useState({});
   const [plans, setPlans] = useState({});
   const [loading, setLoading] = useState(true);
@@ -183,7 +183,6 @@ export default function ManageMembership() {
                 loadOptions={inputValue => debouncedLoadOptions(inputValue)}
                 multiple={false}
                 name="students"
-                aria-label={students}
                 placeholder="Buscar aluno"
                 getOptionValue={student => student.id}
                 getOptionLabel={student => student.name}
@@ -214,7 +213,7 @@ export default function ManageMembership() {
                       ...membership,
                       plan_id: e.id,
                       plan: e,
-                      price: formatPrice(e.price * e.duration),
+                      price: e.price * e.duration,
                     })
                   }
                 />
@@ -252,13 +251,10 @@ export default function ManageMembership() {
               </label>
               <label>
                 VALOR FINAL
-                <NumberFormat
-                  thousandSeparator="."
-                  decimalSeparator=","
-                  fixedDecimalScale={2}
-                  prefix="R$ "
+                <input
+                  type="text"
                   name="price"
-                  value={membership ? membership.price : ''}
+                  value={membership ? formatPrice(membership.price) : ''}
                   disabled
                 />
               </label>
