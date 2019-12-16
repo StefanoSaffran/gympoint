@@ -7,7 +7,8 @@ import Checkin from '../models/Checkin';
 
 class CheckinController {
   async store(req, res) {
-    const checkStudentExists = await Student.findByPk(req.params.id);
+    const { id } = req.params;
+    const checkStudentExists = await Student.findByPk(id);
 
     if (!checkStudentExists) {
       return res.status(401).json({ error: 'Student not found' });
@@ -15,7 +16,7 @@ class CheckinController {
 
     const checkStudentHasMembership = await Membership.findOne({
       where: {
-        student_id: req.params.id,
+        student_id: id,
       },
     });
 
@@ -25,9 +26,15 @@ class CheckinController {
         .json({ error: 'Students need a membership to check-in' });
     }
 
+    if (!checkStudentHasMembership.active) {
+      return res
+        .status(401)
+        .json({ error: 'Membership must be active to check-in' });
+    }
+
     const checkCheckinToday = await Checkin.findOne({
       where: {
-        student_id: req.params.id,
+        student_id: id,
         createdAt: {
           [Op.between]: [startOfDay(new Date()), endOfDay(new Date())],
         },
@@ -42,7 +49,7 @@ class CheckinController {
 
     const checkins = await Checkin.findAll({
       where: {
-        student_id: req.params.id,
+        student_id: id,
         created_at: {
           [Op.between]: [subDays(new Date(), 7), new Date()],
         },
@@ -56,14 +63,16 @@ class CheckinController {
     }
 
     const checkin = await Checkin.create({
-      student_id: req.params.id,
+      student_id: id,
     });
 
     return res.json(checkin);
   }
 
   async index(req, res) {
-    const checkStudentExists = await Student.findByPk(req.params.id);
+    const { page = 1 } = req.query;
+    const { id } = req.params;
+    const checkStudentExists = await Student.findByPk(id);
 
     if (!checkStudentExists) {
       return res.status(401).json({ error: 'Student not found' });
@@ -71,7 +80,7 @@ class CheckinController {
 
     const checkStudentHasMembership = await Membership.findOne({
       where: {
-        student_id: req.params.id,
+        student_id: id,
       },
       include: [
         {
@@ -93,15 +102,19 @@ class CheckinController {
         .json({ error: 'Students need a membership to check-in' });
     }
 
-    const checkins = await Checkin.findAll({
+    const { count, rows: checkins } = await Checkin.findAndCountAll({
       where: {
-        student_id: req.params.id,
+        student_id: id,
       },
+      order: [['createdAt', 'DESC']],
+      limit: 10,
+      offset: (page - 1) * 10,
     });
 
     return res.json({
       checkins,
       membership: checkStudentHasMembership,
+      count,
     });
   }
 }
