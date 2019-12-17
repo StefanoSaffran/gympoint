@@ -25,11 +25,16 @@ import { signOut } from '~/store/modules/student/actions';
 
 export default function Profile() {
   const profile = useSelector(state => state.student.profile);
+  const membership = useSelector(state => state.student.membership);
 
-  const formattedDate = formatDistance(parseISO(profile.end_date), new Date(), {
-    addSuffix: true,
-    locale: pt,
-  });
+  const formattedDate = formatDistance(
+    parseISO(membership.end_date),
+    new Date(),
+    {
+      addSuffix: true,
+      locale: pt,
+    }
+  );
 
   const dispatch = useDispatch();
 
@@ -41,18 +46,18 @@ export default function Profile() {
     <Background>
       <Container>
         <MembershipInfo>
-          <Title>Profile</Title>
+          <Title>Perfil</Title>
           <StudentName>
             <Label>Aluno:</Label>
-            <Name>{profile.student.name}</Name>
+            <Name>{profile.name}</Name>
           </StudentName>
           <StudentEmail>
             <Label>Email:</Label>
-            <Email>{profile.student.email}</Email>
+            <Email>{profile.email}</Email>
           </StudentEmail>
           <Membership>
             <Label>Ativa:</Label>
-            {profile.active ? (
+            {membership.active ? (
               <Active>
                 <Icon name="check-circle" size={20} color="#42cb59" />
                 <Until>{`expira ${formattedDate}`}</Until>
@@ -63,7 +68,7 @@ export default function Profile() {
           </Membership>
           <Plan>
             <Label>Plano:</Label>
-            <PlanTitle>{profile.plan.title}</PlanTitle>
+            <PlanTitle>{membership.plan.title}</PlanTitle>
           </Plan>
 
           <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
