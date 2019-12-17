@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PropTypes from 'prop-types';
 
 import {
   Container,
@@ -32,6 +33,19 @@ const HeaderLogo = ({ navigation }) => {
       )}
     </>
   );
+};
+
+HeaderLogo.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+    state: PropTypes.shape({
+      routeName: PropTypes.string,
+    }),
+  }),
+};
+
+HeaderLogo.defaultProps = {
+  navigation: null,
 };
 
 export default HeaderLogo;
