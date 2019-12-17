@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, ActivityIndicator } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { useSelector } from 'react-redux';
+import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 import { parseISO, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
@@ -24,34 +25,51 @@ function Checkins({ isFocused }) {
   const [totalPages, setTotalPages] = useState(1);
   const [totalCheckins, setTotalCheckins] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const id = useSelector(state => state.student.profile.student.id);
+  const [refreshing, setRefreshing] = useState(false);
+  const id = useSelector(state => state.student.profile.id);
 
   const loadCheckins = async () => {
-    const { data } = await api.get(`students/${id}/checkins`, {
-      params: { page },
-    });
+    try {
+      const { data } = await api.get(`students/${id}/checkins`, {
+        params: { page },
+      });
 
-    const formattedData = data.checkins.map(checkin => ({
-      ...checkin,
-      timeDistance: formatDistance(parseISO(checkin.createdAt), new Date(), {
-        addSuffix: true,
-        locale: pt,
-      }),
-    }));
+      const formattedData = data.checkins.map(checkin => ({
+        ...checkin,
+        timeDistance: formatDistance(parseISO(checkin.createdAt), new Date(), {
+          addSuffix: true,
+          locale: pt,
+        }),
+      }));
 
-    setCheckins(page > 1 ? [...checkins, ...formattedData] : formattedData);
-    setTotalPages(Math.ceil(data.count / 10));
-    setTotalCheckins(data.count);
-    setLoading(false);
-    setLoadingMore(false);
+      setCheckins(page > 1 ? [...checkins, ...formattedData] : formattedData);
+      setTotalPages(Math.ceil(data.count / 10));
+      setTotalCheckins(data.count);
+    } catch (err) {
+      Alert.alert(
+        'Falha ao realizar o CheckIn',
+        err.response
+          ? err.response.data.error
+          : 'Erro de conexão com o servidor'
+      );
+    } finally {
+      setRefreshing(false);
+      setLoading(false);
+    }
   };
 
   const loadMore = () => {
-    if (page === totalPages) return;
+    if (page === totalPages || loading) return;
 
-    setLoadingMore(true);
+    setLoading(true);
     setPage(page + 1);
+  };
+
+  const refreshList = () => {
+    setRefreshing(true);
+    setLoading(true);
+    setPage(1);
+    setCheckins([]);
   };
 
   useEffect(() => {
@@ -62,11 +80,9 @@ function Checkins({ isFocused }) {
 
   const handleCheckin = async () => {
     try {
-      await api.post(`students/${id}/checkins`);
+      const { data } = await api.post(`students/${id}/checkins`);
 
-      if (page === 1) return loadCheckins();
-
-      setPage(1);
+      setCheckins([...checkins, data]);
     } catch (err) {
       Alert.alert(
         'Falha ao realizar o CheckIn',
@@ -81,7 +97,7 @@ function Checkins({ isFocused }) {
     <Background>
       <Container>
         <CheckinButton onPress={handleCheckin}>Novo check-in</CheckinButton>
-        {loading ? (
+        {loading && page === 1 ? (
           <ActivityIndicator color="#ee4e62" size={30} />
         ) : (
           <CheckinList
@@ -93,11 +109,15 @@ function Checkins({ isFocused }) {
                 <Right>{item.timeDistance}</Right>
               </Checkin>
             )}
-            onEndReachedThreshold={0.2}
-            onEndReached={loadMore}
+            refreshing={refreshing}
+            onRefresh={refreshList}
+            onEndReachedThreshold={0.05}
+            onEndReached={debounce(loadMore, 500)}
           />
         )}
-        {loadingMore && <ActivityIndicator color="#ee4e62" size={30} />}
+        {loading && page !== 1 && (
+          <ActivityIndicator color="#ee4e62" size={30} />
+        )}
       </Container>
     </Background>
   );
