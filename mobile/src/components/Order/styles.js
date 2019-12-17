@@ -3,11 +3,11 @@ import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   border: 1px solid #ddd;
-  flex: 1;
   background: #fff;
   border-radius: 4px;
   margin: 0 0 10px;
 `;
+
 export const NewOrder = styled(RectButton)`
   flex-direction: column;
   padding: 20px 20px 25px;
