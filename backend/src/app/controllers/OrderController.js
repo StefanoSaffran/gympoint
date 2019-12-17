@@ -64,13 +64,21 @@ class OrderController {
   }
 
   async index(req, res) {
-    const orders = await Order.findAll({
+    const { page = 1 } = req.query;
+
+    const { count, rows: orders } = await Order.findAndCountAll({
       where: {
         student_id: req.params.id,
       },
+      order: [['createdAt', 'DESC']],
+      limit: 5,
+      offset: (page - 1) * 5,
     });
 
-    return res.json(orders);
+    return res.json({
+      orders,
+      count,
+    });
   }
 }
 

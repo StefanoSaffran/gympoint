@@ -84,11 +84,6 @@ class CheckinController {
       },
       include: [
         {
-          model: Student,
-          as: 'student',
-          attributes: ['id', 'name', 'email'],
-        },
-        {
           model: Plan,
           as: 'plan',
           attributes: ['title'],
@@ -113,6 +108,7 @@ class CheckinController {
 
     return res.json({
       checkins,
+      student: checkStudentExists,
       membership: checkStudentHasMembership,
       count,
     });

@@ -10,7 +10,7 @@ import { Container, OrderTextArea, SubmitButton } from './styles';
 
 export default function NewOrder({ navigation }) {
   const [question, setQuestion] = useState('');
-  const id = useSelector(state => state.student.profile.student.id);
+  const id = useSelector(state => state.student.profile.id);
 
   const handleSubmit = async () => {
     try {
@@ -24,7 +24,12 @@ export default function NewOrder({ navigation }) {
       setQuestion('');
       navigation.navigate('HelpOrders');
     } catch (err) {
-      Alert.alert('Falha ao realizar o pedido', err.response.data.error);
+      Alert.alert(
+        'Falha ao realizar o pedido',
+        err.response
+          ? err.response.data.error
+          : 'Erro de comunicação com o servidor'
+      );
     }
   };
 

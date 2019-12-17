@@ -2,6 +2,7 @@ import produce from 'immer';
 
 const INITIAL_STATE = {
   profile: null,
+  membership: null,
   signed: false,
   loading: false,
 };
@@ -14,7 +15,8 @@ export default function student(state = INITIAL_STATE, action) {
         break;
       }
       case '@student/SIGN_IN_SUCCESS': {
-        draft.profile = action.payload.membership;
+        draft.profile = action.payload.student;
+        draft.membership = action.payload.membership;
         draft.signed = true;
         draft.loading = false;
         break;
@@ -26,6 +28,7 @@ export default function student(state = INITIAL_STATE, action) {
       case '@student/SIGN_OUT': {
         draft.signed = false;
         draft.profile = null;
+        draft.membership = null;
         break;
       }
       default:

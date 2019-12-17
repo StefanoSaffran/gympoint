@@ -9,8 +9,7 @@ export function* signIn({ payload }) {
     const { id } = payload;
 
     const { data } = yield call(api.get, `students/${id}/checkins`);
-    console.tron.log(data.membership);
-    yield put(signInSuccess(data.membership));
+    yield put(signInSuccess(data.membership, data.student));
   } catch (err) {
     yield put(signFailure());
     Alert.alert(
