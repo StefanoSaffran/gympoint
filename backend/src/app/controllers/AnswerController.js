@@ -42,11 +42,11 @@ class AnswerController {
 
     if (ownerSocket) {
       req.io.to(ownerSocket).emit('order_response', order);
+    } else {
+      await Queue.add(HelpOrderAnswerMail.key, {
+        order,
+      });
     }
-
-    await Queue.add(HelpOrderAnswerMail.key, {
-      order,
-    });
 
     return res.json(order);
   }
