@@ -23,6 +23,7 @@ class ConfirmationMail {
             locale: pt,
           }
         ),
+        id: membershipInfo.student.id,
         plan: membershipInfo.plan.title,
         price: membershipInfo.price,
         duration: format(

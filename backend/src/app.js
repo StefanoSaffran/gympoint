@@ -1,3 +1,5 @@
+import './bootstrap';
+
 import express from 'express';
 import cors from 'cors';
 import io from 'socket.io';

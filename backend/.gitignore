@@ -6,10 +6,11 @@
 .pnp.js
 
 # testing
-/coverage
+/__tests__/coverage/*
+/__tests__/database.sqlite
 
 # production
-/build
+/dist
 
 # misc
 .DS_Store

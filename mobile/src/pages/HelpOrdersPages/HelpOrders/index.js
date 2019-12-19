@@ -41,7 +41,6 @@ function HelpOrders({ navigation, isFocused }) {
           return o.id !== order.id ? o : order;
         })
       );
-      Alert.alert('Uma nova mensagem', 'Seu pedido foi respondido');
     });
   });
 
