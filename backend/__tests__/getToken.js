@@ -10,11 +10,11 @@ const getToken = async () => {
     .post('/users')
     .send(user);
 
-  const { body } = await request(app)
+  const response = await request(app)
     .post('/sessions')
     .send(user);
 
-  return body.token;
+  return response;
 };
 
 export default getToken;
