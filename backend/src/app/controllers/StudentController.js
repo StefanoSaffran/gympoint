@@ -1,21 +1,21 @@
-import * as Yup from 'yup';
+import { object, string, number } from 'yup';
 import { Op } from 'sequelize';
 
 import Student from '../models/Student';
 
 class StudentController {
   async store(req, res) {
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      email: Yup.string()
+    const schema = object().shape({
+      name: string().required(),
+      email: string()
         .email()
         .required(),
-      age: Yup.number().required(),
-      weight: Yup.number()
+      age: number().required(),
+      weight: number()
         .required()
         .positive()
         .max(250),
-      height: Yup.number()
+      height: number()
         .required()
         .positive(),
     });
@@ -87,21 +87,21 @@ class StudentController {
   async update(req, res) {
     const { id } = req.params;
 
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      email: Yup.string()
+    const schema = object().shape({
+      name: string().required(),
+      email: string()
         .email()
         .required(),
-      age: Yup.number()
+      age: number()
         .required()
         .positive()
         .max(120)
         .integer(),
-      weight: Yup.number()
+      weight: number()
         .required()
         .positive()
         .max(250),
-      height: Yup.number()
+      height: number()
         .required()
         .positive(),
     });
