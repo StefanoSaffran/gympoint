@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Alert, ActivityIndicator } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 import { withNavigationFocus } from 'react-navigation';
 import PropTypes from 'prop-types';
 import socketio from 'socket.io-client';
 import debounce from 'lodash.debounce';
+import { showMessage, hideMessage } from 'react-native-flash-message';
 
 import api from '~/services/api';
 
@@ -53,12 +54,13 @@ function HelpOrders({ navigation, isFocused }) {
       setOrders(page > 1 ? [...orders, ...data.orders] : data.orders);
       setTotalPages(Math.ceil(data.count / 5));
     } catch (err) {
-      Alert.alert(
-        'Falha ao realizar o CheckIn',
-        err.response
+      showMessage({
+        message: 'Falha ao Carregar os pedidos de ajuda',
+        description: err.response
           ? err.response.data.error
-          : 'Erro de conexão com o servidor'
-      );
+          : 'Erro de conexão com o servidor',
+        type: 'danger',
+      });
     } finally {
       setRefreshing(false);
       setLoading(false);
