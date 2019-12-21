@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { showMessage } from 'react-native-flash-message';
 
 import api from '~/services/api';
 
@@ -16,20 +16,22 @@ export default function NewOrder({ navigation }) {
     try {
       await api.post(`students/${id}/help-orders`, { question });
 
-      Alert.alert(
-        'Pedido enviado',
-        'Um instrutor entrará em contato em breve.'
-      );
+      showMessage({
+        message: 'Pedido enviado',
+        description: 'Um instrutor entrará em contato em breve.',
+        type: 'info',
+      });
 
       setQuestion('');
       navigation.navigate('HelpOrders');
     } catch (err) {
-      Alert.alert(
-        'Falha ao realizar o pedido',
-        err.response
+      showMessage({
+        message: 'Falha ao realizar o pedido',
+        description: err.response
           ? err.response.data.error
-          : 'Erro de comunicação com o servidor'
-      );
+          : 'Erro de conexão com o servidor',
+        type: 'danger',
+      });
     }
   };
 

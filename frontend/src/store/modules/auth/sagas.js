@@ -1,9 +1,10 @@
 import { takeLatest, call, all, put } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
+import decode from 'jwt-decode';
 
 import history from '~/services/history';
 import api from '~/services/api';
-import { signInSuccess, signFailure } from './actions';
+import { signInSuccess, signFailure, tokenInvalid } from './actions';
 
 export function* signIn({ payload }) {
   try {
@@ -24,20 +25,25 @@ export function* signIn({ payload }) {
   } catch (err) {
     yield put(signFailure());
     toast.error(
-      (err.response && err.response.data.error) ||
-        'Erro de comunicação com o servidor'
+      (err.response && err.response.data.error) || 'Error connecting to server'
     );
   }
 }
 
-export function setToken({ payload }) {
+export function* setToken({ payload }) {
   if (!payload) return;
 
   const { token } = payload.auth;
 
   if (token) {
-    api.defaults.headers.Authorization = `Bearer ${token}`;
+    const decoded = decode(token);
+
+    if (decoded.exp < Date.now() / 1000) {
+      yield put(tokenInvalid());
+    }
   }
+
+  api.defaults.headers.Authorization = `Bearer ${token}`;
 }
 
 export function signOut() {
