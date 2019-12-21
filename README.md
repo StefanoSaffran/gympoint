@@ -56,10 +56,10 @@ docker run --name imageName -p 6379:6379 -d -t redis:alpine
 docker run --name imagename -e POSTGRES_PASSWORD=yourPassword -p 5432:5432 -d postgres
 
 # start Redis
-docker start redisgympoint
+docker start imageName
 
 # start Postgres
-docker start database
+docker start imageName
 
 ```
 Now clone the repository and install the dependencies.
@@ -67,11 +67,10 @@ Now clone the repository and install the dependencies.
 # to clone the repository
 git clone https://github.com/StefanoSaffran/gympoint.git
 
-# go into the repository
-cd gympoint
+# go into the backend folder
+cd gympoint/backend
 
 #install the backend dependencies
-cd backend
 yarn install
 
 ```
@@ -91,6 +90,10 @@ cd frontend
 yarn install
 yarn start
 ```
+Use this credentials to access the web application
+<blockquote><strong>email:</strong> admin@gympoint.com</blockquote>
+<blockquote> <strong>senha:</strong> 123456</blockquote>
+
 for mobile you need the Android emulator with the SDK installed or IOS emulator and the react-native cli.
 
 <blockquote>The project was developed and tested on Android emulator</blockquote>
