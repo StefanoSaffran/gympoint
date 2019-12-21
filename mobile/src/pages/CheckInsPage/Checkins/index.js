@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, ActivityIndicator } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { useSelector } from 'react-redux';
 import debounce from 'lodash.debounce';
 import PropTypes from 'prop-types';
 import { parseISO, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
+import { showMessage } from 'react-native-flash-message';
 
 import api from '~/services/api';
 
@@ -24,15 +25,19 @@ function Checkins({ isFocused }) {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCheckins, setTotalCheckins] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const id = useSelector(state => state.student.profile.id);
 
   const loadCheckins = async () => {
+    setLoading(true);
     try {
       const { data } = await api.get(`students/${id}/checkins`, {
         params: { page },
       });
+
+      setTotalCheckins(data.count);
+      setTotalPages(Math.ceil(data.count / 10));
 
       const formattedData = data.checkins.map(checkin => ({
         ...checkin,
@@ -43,15 +48,14 @@ function Checkins({ isFocused }) {
       }));
 
       setCheckins(page > 1 ? [...checkins, ...formattedData] : formattedData);
-      setTotalPages(Math.ceil(data.count / 10));
-      setTotalCheckins(data.count);
     } catch (err) {
-      Alert.alert(
-        'Falha ao realizar o CheckIn',
-        err.response
+      showMessage({
+        message: 'Falha buscar CheckIns',
+        description: err.response
           ? err.response.data.error
-          : 'Erro de conexão com o servidor'
-      );
+          : 'Erro de conexão com o servidor',
+        type: 'danger',
+      });
     } finally {
       setRefreshing(false);
       setLoading(false);
@@ -59,15 +63,13 @@ function Checkins({ isFocused }) {
   };
 
   const loadMore = () => {
-    if (page === totalPages || loading) return;
+    if (page >= totalPages || loading) return;
 
-    setLoading(true);
     setPage(page + 1);
   };
 
   const refreshList = () => {
     setRefreshing(true);
-    setLoading(true);
     setPage(1);
     setCheckins([]);
   };
@@ -82,14 +84,24 @@ function Checkins({ isFocused }) {
     try {
       const { data } = await api.post(`students/${id}/checkins`);
 
-      setCheckins([...checkins, data]);
+      const formattedData = {
+        ...data,
+        timeDistance: formatDistance(parseISO(data.createdAt), new Date(), {
+          addSuffix: true,
+          locale: pt,
+        }),
+      };
+      setTotalCheckins(totalCheckins + 1);
+
+      setCheckins([...checkins, formattedData]);
     } catch (err) {
-      Alert.alert(
-        'Falha ao realizar o CheckIn',
-        err.response
+      showMessage({
+        message: 'Falha ao realizar o CheckIn',
+        description: err.response
           ? err.response.data.error
-          : 'Erro de conexão com o servidor'
-      );
+          : 'Erro de conexão com o servidor',
+        type: 'info',
+      });
     }
   };
 
@@ -112,7 +124,7 @@ function Checkins({ isFocused }) {
             refreshing={refreshing}
             onRefresh={refreshList}
             onEndReachedThreshold={0.05}
-            onEndReached={debounce(loadMore, 500)}
+            onEndReached={debounce(loadMore, 600)}
           />
         )}
         {loading && page !== 1 && (
