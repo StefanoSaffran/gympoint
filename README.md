@@ -8,10 +8,11 @@
   Gym management app, where the admin can manage students, plans, memberships and answer to student requests on the web app and students can check-in and create orders on the mobile app.
 </h4>
 
-<p align = "center">
-<img alt = "Last commit on GitHub" src = "https://img.shields.io/github/last-commit/StefanoSaffran/gympoint">
-<img alt = "Project top programing language" src = "https://img.shields.io/github/languages/top/StefanoSaffran/gympoint">
-<img alt = "GitHub license" src = "https://img.shields.io/github/license/StefanoSaffran/gympoint">
+<p align="center">
+<img alt="Last commit on GitHub" src="https://img.shields.io/github/last-commit/StefanoSaffran/gympoint">
+<img alt="Made by Stefano" src="https://img.shields.io/badge/made%20by-StefanoSaffran-%">
+<img alt="Project top programing language" src="https://img.shields.io/github/languages/top/StefanoSaffran/gympoint">
+<img alt="GitHub license" src="https://img.shields.io/github/license/StefanoSaffran/gympoint">
 </p> 
 
 ## :rocket: Built with
