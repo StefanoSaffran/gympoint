@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
-import NumberFormat from 'react-number-format';
 import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 import DatePicker from 'react-datepicker';
 import { MdKeyboardArrowLeft, MdSave } from 'react-icons/md';
 import { addMonths, parseISO } from 'date-fns';
 import debounce from 'debounce-promise';
+import * as Yup from 'yup';
 
 import Loading from '~/components/Loading';
 import history from '~/services/history';
@@ -17,6 +17,12 @@ import colors from '~/styles/colors';
 import { formatPrice } from '~/helpers/format';
 
 import { Container, Header, Student, Info } from './styles';
+
+const schema = Yup.object().shape({
+  start_date: Yup.date().required('Campo data de inicio é obrigatório'),
+  plan_id: Yup.number().required('Campo plano é obrigatório'),
+  student_id: Yup.number().required('Campo aluno é obrigatório'),
+});
 
 export default function ManageMembership() {
   const [membership, setMembership] = useState({ price: 0 }); // to prevent NaN on field 'Valor Final'
@@ -85,7 +91,27 @@ export default function ManageMembership() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
+    try {
+      await schema.validate(
+        {
+          start_date: membership.start_date,
+          plan_id: membership.plan_id,
+          student_id: studentId || membership.student_id,
+        },
+        {
+          abortEarly: false,
+        }
+      );
+    } catch (err) {
+      err.inner.forEach((error: ValidationError) => {
+        toast.error(error.message);
+      });
+      return;
+    }
+
     setLoading(true);
+
     try {
       if (studentId) {
         const data = {
@@ -231,11 +257,13 @@ export default function ManageMembership() {
                       toast.error('Favor selecionar um plano!');
                       return;
                     }
-                    setMembership({
-                      ...membership,
-                      start_date: date,
-                      end_date: addMonths(date, membership.plan.duration),
-                    });
+                    if (date) {
+                      setMembership({
+                        ...membership,
+                        start_date: date,
+                        end_date: addMonths(date, membership.plan.duration),
+                      });
+                    }
                   }}
                 />
               </label>
