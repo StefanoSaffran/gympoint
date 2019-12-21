@@ -1,29 +1,40 @@
-import { Alert } from 'react-native';
 import { takeLatest, call, all, put } from 'redux-saga/effects';
+import { showMessage } from 'react-native-flash-message';
 
 import api from '~/services/api';
-import { signInSuccess, signFailure } from './actions';
+import { signInSuccess, signFailure, signOut } from './actions';
 
 export function* signIn({ payload }) {
   try {
     const { id } = payload;
-
+    console.tron.log();
     const { data } = yield call(api.get, `students/${id}/checkins`);
     yield put(signInSuccess(data.membership, data.student));
   } catch (err) {
+    console.tron.log(err);
     yield put(signFailure());
-    Alert.alert(
-      'Falha ao realizar login',
-      err.response
+    showMessage({
+      message: 'Falha ao realizar login',
+      description: err.response
         ? err.response.data.error
-        : 'Erro de comunicação com servidor'
-    );
+        : 'Erro de conexão com o servidor',
+      type: 'danger',
+    });
   }
 }
 
-export function signOut() {}
+export function* verifyUser({ payload }) {
+  const { profile } = payload;
+  try {
+    const { data } = yield call(api.get, `students/${profile.id}/checkins`);
+
+    if (!data.membership || !data.student) {
+      yield put(signOut());
+    }
+  } catch (error) {}
+}
 
 export default all([
+  takeLatest('persist/REHYDRATE', verifyUser),
   takeLatest('@student/SIGN_IN_REQUEST', signIn),
-  takeLatest('@student/SIGN_OUT', signOut),
 ]);
