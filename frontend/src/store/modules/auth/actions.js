@@ -23,3 +23,9 @@ export function signOut() {
     type: '@auth/SIGN_OUT',
   };
 }
+
+export function tokenInvalid() {
+  return {
+    type: '@auth/TOKEN_INVALID',
+  };
+}

@@ -28,6 +28,11 @@ export default function auth(state = initial_state, action) {
         draft.signed = false;
         break;
       }
+      case '@auth/TOKEN_INVALID': {
+        draft.token = null;
+        draft.signed = false;
+        break;
+      }
       default:
     }
   });
