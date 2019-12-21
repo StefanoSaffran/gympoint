@@ -9,10 +9,10 @@
 </h4>
 
 <p align="center">
-<img alt="Last commit on GitHub" src="https://img.shields.io/github/last-commit/StefanoSaffran/gympoint">
-<img alt="Made by Stefano" src="https://img.shields.io/badge/made%20by-StefanoSaffran-%">
-<img alt="Project top programing language" src="https://img.shields.io/github/languages/top/StefanoSaffran/gympoint">
-<img alt="GitHub license" src="https://img.shields.io/github/license/StefanoSaffran/gympoint">
+<img alt="Last commit on GitHub" src="https://img.shields.io/github/last-commit/StefanoSaffran/gympoint?color=EE4D64">
+<img alt="Made by Stefano" src="https://img.shields.io/badge/made%20by-StefanoSaffran-%20?color=EE4D64">
+<img alt="Project top programing language" src="https://img.shields.io/github/languages/top/StefanoSaffran/gympoint?color=ee4d64">
+<img alt="GitHub license" src="https://img.shields.io/github/license/StefanoSaffran/gympoint?color=ee4d64">
 </p> 
 
 ## :rocket: Built with
