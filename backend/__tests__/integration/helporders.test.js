@@ -21,23 +21,6 @@ describe('HelpOrders', () => {
     expect(status).toBe(200);
   });
 
-  it('should be able list Help Orders from especific student', async () => {
-    const student = await factory.attrs('Student');
-
-    const { body } = await getToken();
-
-    const { body: studentID } = await request(app)
-      .post('/students')
-      .send(student)
-      .set('Authorization', `Bearer ${body.token}`);
-
-    const { status } = await request(app).get(
-      `/students/${studentID.id}/help-orders`
-    );
-
-    expect(status).toBe(200);
-  });
-
   it('should be able to create a new help order', async () => {
     const student = await factory.attrs('Student');
     const plan = await factory.attrs('Plan');
@@ -67,7 +50,7 @@ describe('HelpOrders', () => {
       .post(`/students/${studentID.id}/help-orders`)
       .send({ question: 'Help test' });
 
-    expect(status).toBe(204);
+    expect(status).toBe(200);
   });
 
   it('should not be able to create a new help order if membership is not active', async () => {
