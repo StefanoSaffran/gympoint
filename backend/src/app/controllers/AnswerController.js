@@ -1,4 +1,4 @@
-import * as Yup from 'yup';
+import { object, string } from 'yup';
 import Order from '../models/Order';
 import Student from '../models/Student';
 
@@ -7,8 +7,8 @@ import Queue from '../../lib/Queue';
 
 class AnswerController {
   async store(req, res) {
-    const schema = Yup.object().shape({
-      answer: Yup.string().required(),
+    const schema = object().shape({
+      answer: string().required(),
     });
 
     if (!(await schema.isValid(req.body))) {

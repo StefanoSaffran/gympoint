@@ -60,7 +60,7 @@ class OrderController {
       req.io.to('admin').emit('new_order', data);
     }
 
-    return res.status(204).send();
+    return res.json(newOrder);
   }
 
   async index(req, res) {

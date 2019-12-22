@@ -139,8 +139,6 @@ describe('Plan', () => {
     const plan_1 = await factory.attrs('Plan');
     const plan_2 = await factory.attrs('Plan');
 
-    console.log(plan_1, plan_2);
-
     const { body } = await getToken();
 
     await request(app)
