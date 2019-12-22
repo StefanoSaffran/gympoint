@@ -20,7 +20,7 @@ factory.define('Student', Student, () => ({
 }));
 
 factory.define('Plan', Plan, () => ({
-  title: faker.random.arrayElement(['Start', 'Gold', 'Diamond']),
+  title: faker.random.word(),
   duration: faker.random.number({ min: 1, max: 12 }),
   price: faker.finance.amount(10, 200, 2),
 }));

@@ -41,7 +41,7 @@ This project was developed with the following technologies:
 -  [ESLint](https://eslint.org/)
 -  [Prettier](https://prettier.io/)
 -  [VS Code](https://code.visualstudio.com/)
--  And many more... Look at the package.json file to see all the dependecies of the app. - [backend](https://github.com/StefanoSaffran/gympoint/blob/master/backend/package.json) [frontend](https://github.com/StefanoSaffran/gympoint/blob/master/frontend/package.json) [mobile](https://github.com/StefanoSaffran/gympoint/blob/master/mobile/package.json)
+-  And many more... Look at the package.json file to see all the dependencies of the app. - [backend](https://github.com/StefanoSaffran/gympoint/blob/master/backend/package.json) [frontend](https://github.com/StefanoSaffran/gympoint/blob/master/frontend/package.json) [mobile](https://github.com/StefanoSaffran/gympoint/blob/master/mobile/package.json)
 
 ## :information_source: How to run the application locally
 ### Requirements
@@ -72,7 +72,7 @@ git clone https://github.com/StefanoSaffran/gympoint.git
 cd gympoint/backend
 
 #install the backend dependencies
-yarn install
+yarn
 
 ```
 In order to connect to the database, you will need to enter the access informations into a .env file, based on a .env.example file that is provided in the backend folder, change the variables according to your environment.
@@ -88,7 +88,7 @@ yarn dev & yarn queue
 
 # in another tab in the terminal install the frontend dependencies and run it 
 cd frontend
-yarn install
+yarn
 yarn start
 ```
 Use this credentials to access the web application
@@ -102,7 +102,7 @@ for mobile you need the Android emulator with the SDK installed or IOS emulator 
 ```bash
 # install dependencies and run the mobile
 cd mobile
-yarn install
+yarn
 
 # first open the emulator and start the react native server
 yarn start

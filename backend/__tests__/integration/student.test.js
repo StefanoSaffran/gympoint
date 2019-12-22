@@ -43,7 +43,7 @@ describe('Student', () => {
     expect(status).toBe(200);
   });
 
-  it('should not be able to create a new student when some field is missing', async () => {
+  it('should not be able to register a new student when some field is missing', async () => {
     const student = {
       name: 'Student test',
       age: 25,
@@ -61,7 +61,7 @@ describe('Student', () => {
     expect(status).toBe(400);
   });
 
-  it('should not be able to register with duplicated email', async () => {
+  it('should not be able to register student with duplicated email', async () => {
     const student = await factory.attrs('Student');
 
     const { body } = await getToken();
@@ -139,8 +139,6 @@ describe('Student', () => {
   });
 
   it('should be able to delete a student if it does not exist', async () => {
-    const student = await factory.attrs('Student');
-
     const { body } = await getToken();
 
     const { status } = await request(app)

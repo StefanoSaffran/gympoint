@@ -1,14 +1,14 @@
-import * as Yup from 'yup';
+import { object, string, number } from 'yup';
 import Plan from '../models/Plan';
 
 class PlanController {
   async store(req, res) {
-    const schema = Yup.object().shape({
-      title: Yup.string().required(),
-      duration: Yup.number()
+    const schema = object().shape({
+      title: string().required(),
+      duration: number()
         .required()
         .integer(),
-      price: Yup.number()
+      price: number()
         .required()
         .positive(),
     });
@@ -44,10 +44,14 @@ class PlanController {
   }
 
   async update(req, res) {
-    const schema = Yup.object().shape({
-      title: Yup.string(),
-      duration: Yup.number().integer(),
-      price: Yup.number().positive(),
+    const schema = object().shape({
+      title: string().required(),
+      duration: number()
+        .integer()
+        .required(),
+      price: number()
+        .positive()
+        .required(),
     });
 
     if (!(await schema.isValid(req.body))) {
