@@ -1,4 +1,4 @@
-import * as Yup from 'yup';
+import { object, date, number, string } from 'yup';
 import { addMonths, parseISO, isBefore, isAfter, endOfDay } from 'date-fns';
 import Membership from '../models/Membership';
 import Plan from '../models/Plan';
@@ -9,10 +9,10 @@ import Queue from '../../lib/Queue';
 
 class MembershipController {
   async store(req, res) {
-    const schema = Yup.object().shape({
-      start_date: Yup.date().required(),
-      plan_id: Yup.number().required(),
-      student_id: Yup.number().required(),
+    const schema = object().shape({
+      start_date: date().required(),
+      plan_id: number().required(),
+      student_id: number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -42,15 +42,15 @@ class MembershipController {
 
     if (
       checkStudentHasMembership &&
-      isAfter(
-        endOfDay(checkStudentHasMembership.end_date),
-        endOfDay(new Date())
-      ) &&
-      !checkStudentHasMembership.active
+      (checkStudentHasMembership.active ||
+        isAfter(
+          endOfDay(checkStudentHasMembership.start_date),
+          endOfDay(new Date())
+        ))
     ) {
       return res
         .status(400)
-        .json({ error: 'Student already has a membership' });
+        .json({ error: 'Student already has a active membership' });
     }
 
     if (isBefore(endOfDay(parsedStartDate), new Date())) {
@@ -149,9 +149,9 @@ class MembershipController {
   }
 
   async update(req, res) {
-    const schema = Yup.object().shape({
-      start_date: Yup.string(),
-      plan_id: Yup.number(),
+    const schema = object().shape({
+      start_date: string().required(),
+      plan_id: number().required(),
     });
 
     const { studentId } = req.params;

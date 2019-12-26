@@ -138,7 +138,7 @@ describe('Student', () => {
     expect(status).toBe(204);
   });
 
-  it('should be able to delete a student if it does not exist', async () => {
+  it('should not be able to delete a student if it does not exist', async () => {
     const { body } = await getToken();
 
     const { status } = await request(app)
