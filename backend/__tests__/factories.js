@@ -4,6 +4,7 @@ import { factory } from 'factory-girl';
 import User from '../src/app/models/User';
 import Student from '../src/app/models/Student';
 import Plan from '../src/app/models/Plan';
+import Checkin from '../src/app/models/Checkin';
 
 factory.define('User', User, () => ({
   name: faker.name.findName(),
@@ -24,5 +25,7 @@ factory.define('Plan', Plan, () => ({
   duration: faker.random.number({ min: 1, max: 12 }),
   price: faker.finance.amount(10, 200, 2),
 }));
+
+factory.define('Checkin', Checkin, {});
 
 export default factory;
