@@ -50,7 +50,7 @@ function Checkins({ isFocused }) {
       setCheckins(page > 1 ? [...checkins, ...formattedData] : formattedData);
     } catch (err) {
       showMessage({
-        message: 'Falha buscar CheckIns',
+        message: 'Falha ao buscar Checkins',
         description: err.response
           ? err.response.data.error
           : 'Erro de conexão com o servidor',

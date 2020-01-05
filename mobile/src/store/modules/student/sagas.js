@@ -7,11 +7,13 @@ import { signInSuccess, signFailure, signOut } from './actions';
 export function* signIn({ payload }) {
   try {
     const { id } = payload;
-    console.tron.log();
+    if (!id) {
+      yield put(signFailure());
+      return;
+    }
     const { data } = yield call(api.get, `students/${id}/checkins`);
     yield put(signInSuccess(data.membership, data.student));
   } catch (err) {
-    console.tron.log(err);
     yield put(signFailure());
     showMessage({
       message: 'Falha ao realizar login',
@@ -27,7 +29,7 @@ export function* verifyUser({ payload }) {
   const { profile } = payload;
   try {
     const { data } = yield call(api.get, `students/${profile.id}/checkins`);
-
+    console.tron.log(data);
     if (!data.membership || !data.student) {
       yield put(signOut());
     }

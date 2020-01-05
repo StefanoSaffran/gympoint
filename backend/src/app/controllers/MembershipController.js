@@ -83,9 +83,11 @@ class MembershipController {
       ],
     });
 
-    await Queue.add(ConfirmationMail.key, {
-      membershipInfo,
-    });
+    if (process.env.NODE_ENV !== 'test') {
+      await Queue.add(ConfirmationMail.key, {
+        membershipInfo,
+      });
+    }
 
     return res.json(membership);
   }
