@@ -42,7 +42,9 @@ class AnswerController {
 
     if (ownerSocket) {
       req.io.to(ownerSocket).emit('order_response', order);
-    } else {
+    }
+
+    if (!ownerSocket && process.env.NODE_ENV !== 'test') {
       await Queue.add(HelpOrderAnswerMail.key, {
         order,
       });
