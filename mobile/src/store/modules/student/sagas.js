@@ -26,14 +26,14 @@ export function* signIn({ payload }) {
 }
 
 export function* verifyUser({ payload }) {
-  const { profile } = payload;
+  const { student } = payload;
   try {
-    const { data } = yield call(api.get, `students/${profile.id}/checkins`);
-    console.tron.log(data);
-    if (!data.membership || !data.student) {
+    yield call(api.get, `students/${student.profile.id}/checkins`);
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
       yield put(signOut());
     }
-  } catch (error) {}
+  }
 }
 
 export default all([
