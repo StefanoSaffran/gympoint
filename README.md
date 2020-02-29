@@ -1,7 +1,9 @@
+<div align="center">
+    <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1576226426/kxmdozm0odu7e0twlhx3.svg" width="230px"/>
+</div>
+
 <h1 align="center">
-    <img src="https://res.cloudinary.com/stefanosaffran/image/upload/v1576226426/kxmdozm0odu7e0twlhx3.svg" />
-    <br>
-    GymPoint Fullstack app
+   GymPoint Fullstack app
 </h1>
 
 <h4 align="center">
@@ -14,6 +16,13 @@
 <img alt="Project top programing language" src="https://img.shields.io/github/languages/top/StefanoSaffran/gympoint?color=ee4d64">
 <img alt="GitHub license" src="https://img.shields.io/github/license/StefanoSaffran/gympoint?color=ee4d64">
 </p> 
+
+<p align="center">
+  <a href="#-built-with">Built with</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-how-to-run">How to run</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-licença">Licença</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-get-in-touch">Get in touch</a>
+</p>
 
 ## :rocket: Built with
 
@@ -43,7 +52,7 @@ This project was developed with the following technologies:
 -  [VS Code](https://code.visualstudio.com/)
 -  And many more... Look at the package.json file to see all the dependencies of the app. - [backend](https://github.com/StefanoSaffran/gympoint/blob/master/backend/package.json) [frontend](https://github.com/StefanoSaffran/gympoint/blob/master/frontend/package.json) [mobile](https://github.com/StefanoSaffran/gympoint/blob/master/mobile/package.json)
 
-## :information_source: How to run the application locally
+## :information_source: How to run
 ### Requirements
 To run the app, you will need [Git](https://git-scm.com), [Node.js](https://nodejs.org/) v12.13.1 or higher, [Yarn](https://yarnpkg.com/), [PostgreSQL](https://www.postgresql.org/) and [Redis](https://redis.io/) installed on your computer. I strongly recommend using [Docker](https://www.docker.com/) to run the databases.
 <br>
@@ -63,6 +72,7 @@ docker start imageName
 docker start imageName
 
 ```
+### Backend
 Now clone the repository and install the dependencies.
 ```bash
 # to clone the repository
@@ -85,8 +95,12 @@ yarn sequelize db:seed:all
 
 # run api
 yarn dev & yarn queue
+```
 
-# in another tab in the terminal install the frontend dependencies and run it 
+### Frontend
+
+```bash
+# in another tab of the terminal install the frontend dependencies and run it 
 cd frontend
 yarn
 yarn start
@@ -94,6 +108,8 @@ yarn start
 Use this credentials to access the web application
 <blockquote><strong>email:</strong> admin@gympoint.com</blockquote>
 <blockquote> <strong>senha:</strong> 123456</blockquote>
+
+### Mobile
 
 for mobile you need the Android emulator with the SDK installed or IOS emulator and the react-native cli.
 
