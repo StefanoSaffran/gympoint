@@ -18,10 +18,10 @@
 </p> 
 
 <p align="center">
-  <a href="#-built-with">Built with</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-how-to-run">How to run</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-licença">Licença</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-get-in-touch">Get in touch</a>
+  <a href="#rocket-built-with">Built with</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#information_source-how-to-run">How to run</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#page_facing_up-license">Licence</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#mailbox_with_mail-get-in-touch">Get in touch</a>
 </p>
 
 ## :rocket: Built with
@@ -50,7 +50,7 @@ This project was developed with the following technologies:
 -  [ESLint](https://eslint.org/)
 -  [Prettier](https://prettier.io/)
 -  [VS Code](https://code.visualstudio.com/)
--  And many more... Look at the package.json file to see all the dependencies of the app. - [backend](https://github.com/StefanoSaffran/gympoint/blob/master/backend/package.json) [frontend](https://github.com/StefanoSaffran/gympoint/blob/master/frontend/package.json) [mobile](https://github.com/StefanoSaffran/gympoint/blob/master/mobile/package.json)
+-  Look at the package.json file to see all the dependencies of the app. - [backend](https://github.com/StefanoSaffran/gympoint/blob/master/backend/package.json) [frontend](https://github.com/StefanoSaffran/gympoint/blob/master/frontend/package.json) [mobile](https://github.com/StefanoSaffran/gympoint/blob/master/mobile/package.json)
 
 ## :information_source: How to run
 ### Requirements
