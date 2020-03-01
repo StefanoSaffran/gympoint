@@ -16,8 +16,8 @@
     "immer": "^5.0.0",
     "lodash.debounce": "^4.0.8",
     "prop-types": "^15.7.2",
-    "react": "16.9.0",
-    "react-native": "0.61.4",
+    "react": "16.13.0",
+    "react-native": "0.61.5",
     "react-native-flash-message": "^0.1.15",
     "react-native-gesture-handler": "^1.5.1",
     "react-native-reanimated": "^1.4.0",
@@ -39,7 +39,7 @@
   "devDependencies": {
     "@babel/core": "^7.7.2",
     "@babel/runtime": "^7.7.2",
-    "@react-native-community/eslint-config": "^0.0.5",
+    "@react-native-community/eslint-config": "0.0.7",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-plugin-root-import": "^6.4.1",
@@ -51,11 +51,11 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-react-hooks": "2.5.0",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.57.0",
     "prettier": "^1.19.1",
-    "react-test-renderer": "16.9.0"
+    "react-test-renderer": "16.13.0"
   },
   "jest": {
     "preset": "react-native"
