@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@rocketseat/unform": "1.6.1",
+    "@rocketseat/unform": "1.6.2",
     "axios": "0.19.2",
     "date-fns": "2.10.0",
     "debounce-promise": "3.1.2",
