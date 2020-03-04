@@ -10202,17 +10202,17 @@ react@16.13.0:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
 
-reactotron-core-client@2.8.8:
-  version "2.8.8"
-  resolved "https://registry.yarnpkg.com/reactotron-core-client/-/reactotron-core-client-2.8.8.tgz#fa1f93629e9a3d1b2beca765701b8ef3a8c3d3c0"
-  integrity sha512-FCXudNw5zCcV6waXCubGGxypVS2EKZMRwJ89rd6GCsgFENbJhGizcPyjmv6aBatHFIQcLhUD7XShZJEqWs7E4A==
+reactotron-core-client@2.8.9:
+  version "2.8.9"
+  resolved "https://registry.yarnpkg.com/reactotron-core-client/-/reactotron-core-client-2.8.9.tgz#79b96c69c017a036129a7cbce2ce6b3729995cfc"
+  integrity sha512-IAfNEst/VrWC4b5kOWkHLV0xCwM5n3Pd8q59ueotg1Tql81HnhCeHW1/lCPaaNh2B3/Eh3rAXuiM3yYWvdU36g==
 
-reactotron-react-js@3.3.6:
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/reactotron-react-js/-/reactotron-react-js-3.3.6.tgz#1320c2ce4c4bc7cc9b506980e105445869ea870e"
-  integrity sha512-TfxPcTcMmJ9RItPncGiW12JwTihGuzVnzfs3bTfGZQdQOoRdwfgmsEy34zmBYOCUHhFcptdC5R8mnWA0kTZXqA==
+reactotron-react-js@3.3.7:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/reactotron-react-js/-/reactotron-react-js-3.3.7.tgz#c2d09e8d6f4758be207d346185de956dc80fa91f"
+  integrity sha512-wWC2P2A2OhtUMN0L4vIphaPZXcC2HRwotNljCipEyzHDzTwvRmgsb5ZNKQjmAWGPZlqlb8EEAJA1L9A7HB8B2A==
   dependencies:
-    reactotron-core-client "2.8.8"
+    reactotron-core-client "2.8.9"
     stacktrace-js "2.0.1"
 
 reactotron-redux-saga@4.2.2:
