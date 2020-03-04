@@ -24,7 +24,7 @@
     "react-router-dom": "5.1.2",
     "react-scripts": "3.4.0",
     "react-select": "3.0.8",
-    "react-toastify": "5.4.0",
+    "react-toastify": "5.5.0",
     "reactotron-react-js": "3.3.6",
     "reactotron-redux": "3.1.2",
     "reactotron-redux-saga": "4.2.2",
