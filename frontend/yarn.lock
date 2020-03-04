@@ -9847,10 +9847,10 @@ react-app-rewired@2.1.5:
   dependencies:
     semver "^5.6.0"
 
-react-confirm-alert@2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/react-confirm-alert/-/react-confirm-alert-2.4.1.tgz#cc0837edd80271ea1c5e93840537399e99b07ff3"
-  integrity sha512-Sc2N1paCTCS5HWEAhik2IQa9/vwSQLAoCT5uccjPH/VyTaBAkRPZPx9sUqFTy3q5VnnGwCPsoz7fnw54x79d/w==
+react-confirm-alert@2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/react-confirm-alert/-/react-confirm-alert-2.6.0.tgz#a3ecdd000833be23faaf7548da0edea36b8d40f3"
+  integrity sha512-92tVzF8mmf4Zp9yXAevWXVQ19q8SPIrMC3A29vsyxpjq90Wdm0jLrZAaoDM5C58NI77PKQFZiDsV8Ke7dW34Tg==
 
 react-datepicker@2.10.0:
   version "2.10.0"
