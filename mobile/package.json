@@ -27,7 +27,7 @@
     "react-navigation-stack": "1.10.3",
     "react-navigation-tabs": "2.8.2",
     "react-redux": "7.2.0",
-    "reactotron-react-native": "4.0.2",
+    "reactotron-react-native": "4.0.3",
     "reactotron-redux": "3.1.2",
     "reactotron-redux-saga": "4.2.3",
     "redux": "4.0.4",
