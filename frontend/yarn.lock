@@ -9758,9 +9758,9 @@ prop-types@15.7.2, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, p
     react-is "^16.8.1"
 
 property-expr@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/property-expr/-/property-expr-2.0.0.tgz#d0e97bb6800c2d07af0a84617f62e2862849f87f"
-  integrity sha512-BeLWlW3nAcD5KaCq7TOKcfnqpqk98mNhv3OeXKfzTVjmFOc1zQcpkdwP+DJdHv/J1TXrJedcD56ovqfRcmgJPg==
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/property-expr/-/property-expr-2.0.4.tgz#37b925478e58965031bb612ec5b3260f8241e910"
+  integrity sha512-sFPkHQjVKheDNnPvotjQmm3KD3uk1fWKUN7CrpdbwmUx3CrG3QiM8QpTSimvig5vTXmTvjz7+TDvXOI9+4rkcg==
 
 proxy-addr@~2.0.5:
   version "2.0.5"
