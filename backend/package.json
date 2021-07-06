@@ -39,7 +39,7 @@
     "eslint-plugin-prettier": "3.1.2",
     "factory-girl": "5.0.4",
     "faker": "4.1.0",
-    "jest": "25.1.0",
+    "jest": "25.5.4",
     "nodemon": "2.0.2",
     "prettier": "1.19.1",
     "sequelize-cli": "5.5.1",
