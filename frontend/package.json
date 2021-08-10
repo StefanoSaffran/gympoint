@@ -10,7 +10,7 @@
     "history": "4.10.1",
     "immer": "8.0.1",
     "jwt-decode": "2.2.0",
-    "polished": "3.4.4",
+    "polished": "3.7.2",
     "prop-types": "15.7.2",
     "react": "16.14.0",
     "react-activity": "1.2.2",
