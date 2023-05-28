@@ -41,7 +41,7 @@
     "faker": "4.1.0",
     "jest": "25.1.0",
     "nodemon": "2.0.2",
-    "prettier": "1.19.1",
+    "prettier": "2.8.8",
     "sequelize-cli": "5.5.1",
     "sqlite3": "4.1.1",
     "sucrase": "3.12.1",
