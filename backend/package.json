@@ -40,7 +40,7 @@
     "factory-girl": "5.0.4",
     "faker": "4.1.0",
     "jest": "25.1.0",
-    "nodemon": "2.0.2",
+    "nodemon": "2.0.22",
     "prettier": "1.19.1",
     "sequelize-cli": "5.5.1",
     "sqlite3": "4.1.1",
