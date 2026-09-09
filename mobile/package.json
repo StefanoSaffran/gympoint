@@ -17,7 +17,7 @@
     "lodash.debounce": "4.0.8",
     "prop-types": "15.7.2",
     "react": "16.14.0",
-    "react-native": "0.61.5",
+    "react-native": "0.62.3",
     "react-native-flash-message": "0.1.15",
     "react-native-gesture-handler": "1.6.0",
     "react-native-reanimated": "1.7.0",
