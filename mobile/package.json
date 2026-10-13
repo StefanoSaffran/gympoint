@@ -13,7 +13,7 @@
     "@react-native-community/async-storage": "1.8.1",
     "axios": "0.21.1",
     "immer": "8.0.1",
-    "date-fns": "2.11.0",
+    "date-fns": "2.30.0",
     "lodash.debounce": "4.0.8",
     "prop-types": "15.7.2",
     "react": "16.14.0",
